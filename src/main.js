@@ -18,20 +18,30 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(10, 5, 5);
 scene.add(directionalLight);
 
-const ambientLight = new THREE.AmbientLight(0x96ecd7);
+const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(ambientLight);
 
 // Loader
+
+var football;
+
 const loader = new OBJLoader();
 loader.load("/ball.obj", (object) => {
-  scene.add(object);
-  object.position.set(0, 0, 0);
-  object.scale.set(1, 1, 1);
+  football = object;
+  scene.add(football);
+  football.position.set(0, 0, 0);
+
+  football.scale.set(1, 1, 1);
 });
 
 camera.position.z = 5;
 
 function animate() {
+  if (football) {
+    football.rotateX(0.01);
+    football.rotateY(0.1);
+    football.rotateZ(0.05);
+  }
   renderer.render(scene, camera);
 }
 renderer.setAnimationLoop(animate);
