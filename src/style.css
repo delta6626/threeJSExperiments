@@ -2,3 +2,13 @@
   margin: 0;
   padding: 0;
 }
+
+#info {
+  position: absolute;
+  color: white;
+  font-family: "Arial";
+  font-size: 4rem;
+  margin-top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
