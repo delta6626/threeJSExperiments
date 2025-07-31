@@ -17,7 +17,7 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
-  const cuboid = createCuboid(1, 1, 1, 0xffffff, 0, -1, -2);
+  const cuboid = createCuboid(2, 1, 1, 0xfca2a2ff, 0, -2, -3);
   scene.add(cuboid);
 
   function animate() {
