@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { degToRad } from "three/src/math/MathUtils.js";
 
 let factor = 0;
+let orbitAngle = 0;
 
 function init() {
   const scene = new THREE.Scene();
@@ -12,10 +13,8 @@ function init() {
     1000
   );
 
-  camera.position.z = 5;
-  camera.position.y = 2;
-  camera.position.x = 1;
-  camera.rotateX(degToRad(-10));
+  camera.position.set(1, 2, 5);
+  camera.lookAt(0, 0, 0);
 
   const cuboidParent = createCube(1, 1, 2, 0xffffff, 0, 0, 0);
   scene.add(cuboidParent);
@@ -36,6 +35,14 @@ function init() {
     if (factor == 2) {
       factor = 0;
     }
+
+    camera.position.x = 5 * Math.cos(orbitAngle);
+    camera.position.z = 5 * Math.sin(orbitAngle);
+
+    orbitAngle += 0.01;
+
+    camera.lookAt(0, 0, 0);
+
     renderer.render(scene, camera);
   }
 }
