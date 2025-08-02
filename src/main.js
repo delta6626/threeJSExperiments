@@ -4,7 +4,7 @@ import { degToRad } from "three/src/math/MathUtils.js";
 let factor = 0;
 let orbitAngle = 0;
 
-function init() {
+async function init() {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     75,
@@ -21,6 +21,9 @@ function init() {
 
   const cube = createCube(1, 1, 1, 0xf77d7dff, 0, 1, 0);
   cuboidParent.add(cube);
+
+  const skybox = await createTexturedSphere("/assets/textures/sky.webp", 1000);
+  scene.add(skybox);
 
   const renderer = new THREE.WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -42,6 +45,7 @@ function init() {
     orbitAngle += 0.01;
 
     camera.lookAt(0, 0, 0);
+    skybox.position.copy(camera.position);
 
     renderer.render(scene, camera);
   }
@@ -55,6 +59,21 @@ function createCube(w, h, d, c, x, y, z) {
   cubeMesh.position.set(x, y, z);
 
   return cubeMesh;
+}
+
+async function createTexturedSphere(texturePath, radius) {
+  const loader = new THREE.TextureLoader();
+  const texture = await loader.loadAsync(texturePath);
+
+  const material = new THREE.MeshBasicMaterial({
+    map: texture,
+    side: THREE.BackSide,
+  });
+
+  const sphere = new THREE.SphereGeometry(radius, 128, 128);
+
+  const sphereMesh = new THREE.Mesh(sphere, material);
+  return sphereMesh;
 }
 
 init();
