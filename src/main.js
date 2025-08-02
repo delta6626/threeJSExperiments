@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import { degToRad } from "three/src/math/MathUtils.js";
 
+let factor = 0;
+
 function init() {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
@@ -27,10 +29,15 @@ function init() {
   renderer.setAnimationLoop(() => {
     update(renderer, scene, camera);
   });
-}
 
-function update(renderer, scene, camera) {
-  renderer.render(scene, camera);
+  function update(renderer, scene, camera) {
+    cuboidParent.rotation.z = Math.PI * factor;
+    factor += 0.01;
+    if (factor == 2) {
+      factor = 0;
+    }
+    renderer.render(scene, camera);
+  }
 }
 
 function createCube(w, h, d, c, x, y, z) {
