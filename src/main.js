@@ -13,6 +13,17 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
+  scene.fog = new THREE.FogExp2("rgb(250,200,150)", 0.2);
+
+  const ground = new THREE.Mesh(
+    new THREE.PlaneGeometry(1000, 1000),
+    new THREE.MeshStandardMaterial({ color: 0x888888 })
+  );
+
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.y = -1;
+  scene.add(ground);
+
   const cube = new THREE.BoxGeometry(1, 1, 1);
   const cubeMaterial = new THREE.MeshBasicMaterial({ color: "rgb(100,0,0)" });
   const cubeMesh = new THREE.Mesh(cube, cubeMaterial);
