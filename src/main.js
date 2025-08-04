@@ -14,7 +14,7 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
-  const pointLight = new THREE.PointLight("rgba(255, 255, 255, 1)");
+  const pointLight = new THREE.PointLight("rgba(255, 255, 255, 1)", 2);
   pointLight.position.set(0, 1, 2);
   scene.add(pointLight);
 
