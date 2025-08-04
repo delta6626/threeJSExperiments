@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { degToRad } from "three/src/math/MathUtils.js";
 
 function init() {
   const scene = new THREE.Scene();
@@ -21,6 +22,17 @@ function init() {
     new THREE.BoxGeometry(1, 1, 1, 256, 256),
     new THREE.MeshPhongMaterial({ color: "rgba(192, 252, 197, 1)" })
   );
+
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(1000, 1000),
+    new THREE.MeshPhongMaterial({
+      color: "rgba(255, 244, 209, 1)",
+      side: THREE.DoubleSide,
+    })
+  );
+  plane.position.set(0, -1, 0);
+  plane.rotateX(degToRad(90));
+  scene.add(plane);
 
   scene.add(cube);
 
