@@ -1,5 +1,58 @@
 import * as three from "three";
+import { OrbitControls } from "three/examples/jsm/Addons.js";
 
-function init() {}
+const scene = new three.Scene();
+const camera = new three.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+const renderer = new three.WebGLRenderer();
+const controller = new OrbitControls(camera, renderer.domElement);
+
+function init() {
+  camera.position.set(0, 1, 5);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+  renderer.setAnimationLoop(animate);
+
+  scene.add(createCubeRow(1, 10, 2));
+}
+
+function createCube(sideLength, posX, posY, posZ) {
+  const cube = new three.Mesh(
+    new three.BoxGeometry(sideLength, sideLength, sideLength, 256, 256),
+    new three.MeshBasicMaterial({ color: "rgba(247, 255, 255, 1)" })
+  );
+
+  if (posX == null) {
+    posX = 0;
+  }
+  if (posY == null) {
+    posY = 0;
+  }
+  if (posZ == null) {
+    posZ = 0;
+  }
+
+  cube.position.set(posX, posY, posZ);
+  return cube;
+}
+
+function createCubeRow(sizeLength, amount, distance) {
+  const cubeGroup = new three.Group();
+  for (let i = 0; i < amount; i++) {
+    const cube = createCube(sizeLength, distance * i, 0, 0);
+    cubeGroup.add(cube);
+  }
+
+  return cubeGroup;
+}
+
+function animate() {
+  controller.update();
+  renderer.render(scene, camera);
+}
 
 init();
