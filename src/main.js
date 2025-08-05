@@ -39,6 +39,7 @@ function init() {
 
   const controllerGUI = new dat.GUI();
   controllerGUI.add(pointLight, "intensity", 0, 5);
+  controllerGUI.add(pointLight.position, "y", -2, 10);
 
   renderer.setAnimationLoop(animate);
 
