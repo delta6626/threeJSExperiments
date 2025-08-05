@@ -43,6 +43,10 @@ function init() {
   controllerGUI.add(pointLight.position, "x", -10, 10);
   controllerGUI.add(pointLight.position, "z", -10, 10);
 
+  controllerGUI.add(cube.position, "y", -10, 10);
+  controllerGUI.add(cube.position, "x", -10, 10);
+  controllerGUI.add(cube.position, "z", -10, 10);
+
   renderer.setAnimationLoop(animate);
 
   function animate() {
