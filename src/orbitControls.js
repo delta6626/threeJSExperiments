@@ -13,15 +13,12 @@ function init() {
   );
   camera.position.set(0, 1, 4);
   const renderer = new THREE.WebGLRenderer();
-
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.shadowMap.enabled = true;
   document.body.appendChild(renderer.domElement);
 
   const controls = new OrbitControls(camera, renderer.domElement);
 
   const pointLight = new THREE.PointLight("rgba(255, 255, 255, 1)", 2);
-  pointLight.castShadow = true;
   pointLight.position.set(0, 1, 2);
   scene.add(pointLight);
 
@@ -29,7 +26,6 @@ function init() {
     new THREE.BoxGeometry(1, 1, 1, 256, 256),
     new THREE.MeshPhongMaterial({ color: "rgba(192, 252, 197, 1)" })
   );
-  cube.castShadow = true;
 
   const plane = new THREE.Mesh(
     new THREE.PlaneGeometry(1000, 1000),
@@ -40,7 +36,6 @@ function init() {
   );
   plane.position.set(0, -1, 0);
   plane.rotateX(degToRad(90));
-  plane.receiveShadow = true;
   scene.add(plane);
 
   scene.add(cube);
