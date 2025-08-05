@@ -43,9 +43,9 @@ function init() {
   controllerGUI.add(pointLight.position, "x", -10, 10);
   controllerGUI.add(pointLight.position, "z", -10, 10);
 
-  controllerGUI.add(cube.position, "y", -10, 10);
-  controllerGUI.add(cube.position, "x", -10, 10);
-  controllerGUI.add(cube.position, "z", -10, 10);
+  controllerGUI.add(cube.position, "y", -10, 10).name("Cube y");
+  controllerGUI.add(cube.position, "x", -10, 10).name("Cube x");
+  controllerGUI.add(cube.position, "z", -10, 10).name("Cube z");
 
   renderer.setAnimationLoop(animate);
 
