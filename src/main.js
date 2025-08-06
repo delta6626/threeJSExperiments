@@ -17,7 +17,7 @@ function init() {
   document.body.appendChild(renderer.domElement);
   renderer.setAnimationLoop(animate);
 
-  scene.add(createCubeRow(1, 10, 2));
+  scene.add(createCubeRow(1, 12, 2, 4));
 }
 
 function createCube(sideLength, posX, posY, posZ) {
@@ -40,11 +40,23 @@ function createCube(sideLength, posX, posY, posZ) {
   return cube;
 }
 
-function createCubeRow(sizeLength, amount, distance) {
+function createCubeRow(sizeLength, amount, distance, maxItems) {
   const cubeGroup = new three.Group();
+  let currentRow = 0;
+  let column = 0;
   for (let i = 0; i < amount; i++) {
-    const cube = createCube(sizeLength, distance * i, 0, 0);
+    if (i != 0 && i % maxItems == 0) {
+      currentRow++;
+      column = 0;
+    }
+    const cube = createCube(
+      sizeLength,
+      distance * column,
+      0,
+      currentRow * distance
+    );
     cubeGroup.add(cube);
+    column++;
   }
 
   return cubeGroup;
