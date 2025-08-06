@@ -24,9 +24,9 @@ function init() {
   cubeGrid.position.set(-boundingBoxSize.x / 2, 0, -boundingBoxSize.z / 2);
   scene.add(cubeGrid);
 
-  let pointlight = new three.PointLight("#ffffff", 4);
-  pointlight.position.set(0, 2, 0);
-  scene.add(pointlight);
+  let spotLight = new three.SpotLight("#ffffff", 4);
+  spotLight.position.set(0, 2, 0);
+  scene.add(spotLight);
 }
 
 function createCube(sideLength, posX, posY, posZ) {
