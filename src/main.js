@@ -19,6 +19,7 @@ function init() {
 
   let plane = createPlane(1000, 1000);
   plane.rotateX(-Math.PI / 2);
+  plane.position.set(0, -1, 0);
   scene.add(plane);
   let cubeGrid = createCubeGrid(1, 12, 2, 4);
   let boundingBox = new three.Box3();
