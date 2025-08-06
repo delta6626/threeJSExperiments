@@ -17,6 +17,9 @@ function init() {
   document.body.appendChild(renderer.domElement);
   renderer.setAnimationLoop(animate);
 
+  let plane = createPlane(1000, 1000);
+  plane.rotateX(-Math.PI / 2);
+  scene.add(plane);
   let cubeGrid = createCubeGrid(1, 12, 2, 4);
   let boundingBox = new three.Box3();
   let boundingBoxSize = new three.Vector3();
@@ -69,6 +72,14 @@ function createCubeGrid(sizeLength, amount, distance, maxItems) {
   }
 
   return cubeGroup;
+}
+
+function createPlane(width, height) {
+  const plane = new three.Mesh(
+    new three.PlaneGeometry(width, height),
+    new three.MeshPhongMaterial({ color: "#ffffff", side: three.DoubleSide })
+  );
+  return plane;
 }
 
 function animate() {
