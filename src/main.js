@@ -18,7 +18,10 @@ function init() {
   renderer.setAnimationLoop(animate);
 
   let cubeGrid = createCubeGrid(1, 12, 2, 4);
-  cubeGrid.position.set(0, 0, 0);
+  let boundingBox = new three.Box3();
+  let boundingBoxSize = new three.Vector3();
+  boundingBox.setFromObject(cubeGrid).getSize(boundingBoxSize);
+  cubeGrid.position.set(-boundingBoxSize.x / 2, 0, -boundingBoxSize.z / 2);
   scene.add(cubeGrid);
 }
 
