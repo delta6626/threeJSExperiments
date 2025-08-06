@@ -17,9 +17,12 @@ function init() {
   document.body.appendChild(renderer.domElement);
   renderer.setAnimationLoop(animate);
 
+  renderer.shadowMap.enabled = true;
+
   let plane = createPlane(1000, 1000);
   plane.rotateX(-Math.PI / 2);
   plane.position.set(0, -1, 0);
+  plane.receiveShadow = true;
   scene.add(plane);
   let cubeGrid = createCubeGrid(1, 12, 2, 4);
   let boundingBox = new three.Box3();
@@ -29,7 +32,8 @@ function init() {
   scene.add(cubeGrid);
 
   let directionalLight = new three.DirectionalLight("#ffffff", 4);
-  directionalLight.position.set(0, 2, 0);
+  directionalLight.position.set(-1, 2, 0);
+  directionalLight.castShadow = true;
   scene.add(directionalLight);
 }
 
@@ -68,6 +72,7 @@ function createCubeGrid(sizeLength, amount, distance, maxItems) {
       0,
       currentRow * distance
     );
+    cube.castShadow = true;
     cubeGroup.add(cube);
     column++;
   }
