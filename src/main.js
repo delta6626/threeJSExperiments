@@ -21,7 +21,7 @@ function init() {
 
   let plane = createPlane(1000, 1000);
   plane.rotateX(-Math.PI / 2);
-  plane.position.set(0, -1, 0);
+  plane.position.set(0, -0.5, 0);
   plane.receiveShadow = true;
   scene.add(plane);
   let cubeGrid = createCubeGrid(1, 12, 2, 4);
