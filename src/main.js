@@ -17,7 +17,9 @@ function init() {
   document.body.appendChild(renderer.domElement);
   renderer.setAnimationLoop(animate);
 
-  scene.add(createCubeRow(1, 12, 2, 4));
+  let cubeGrid = createCubeGrid(1, 12, 2, 4);
+  cubeGrid.position.set(0, 0, 0);
+  scene.add(cubeGrid);
 }
 
 function createCube(sideLength, posX, posY, posZ) {
@@ -40,7 +42,7 @@ function createCube(sideLength, posX, posY, posZ) {
   return cube;
 }
 
-function createCubeRow(sizeLength, amount, distance, maxItems) {
+function createCubeGrid(sizeLength, amount, distance, maxItems) {
   const cubeGroup = new three.Group();
   let currentRow = 0;
   let column = 0;
