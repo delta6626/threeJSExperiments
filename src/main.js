@@ -93,7 +93,7 @@ function animate() {
   controller.update();
   const cubeGrid = scene.getObjectByName("cubeGrid");
   cubeGrid.children.forEach((cube) => {
-    //cube.position.x = Math.floor(Math.random() * 10);
+    cube.position.x = Math.floor(Math.random() * 10);
   });
   renderer.render(scene, camera);
 }
