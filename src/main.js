@@ -31,16 +31,15 @@ function init() {
   cubeGrid.position.set(-boundingBoxSize.x / 2, 0, -boundingBoxSize.z / 2);
   scene.add(cubeGrid);
 
-  let directionalLight = new three.DirectionalLight("#ffffff", 4);
-  directionalLight.position.set(-1, 2, 0);
-  directionalLight.castShadow = true;
-  scene.add(directionalLight);
+  let ambientLight = new three.AmbientLight("#ffffff");
+  ambientLight.position.set(-1, 2, 0);
+  scene.add(ambientLight);
 }
 
 function createCube(sideLength, posX, posY, posZ) {
   const cube = new three.Mesh(
     new three.BoxGeometry(sideLength, sideLength, sideLength, 256, 256),
-    new three.MeshPhongMaterial({ color: "rgba(247, 100, 255, 1)" })
+    new three.MeshPhongMaterial({ color: "rgba(93, 179, 250, 1)" })
   );
 
   if (posX == null) {
