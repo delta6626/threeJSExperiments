@@ -25,6 +25,7 @@ function init() {
   plane.receiveShadow = true;
   scene.add(plane);
   let cubeGrid = createCubeGrid(1, 12, 2, 4);
+  cubeGrid.name = "cubeGrid";
   let boundingBox = new three.Box3();
   let boundingBoxSize = new three.Vector3();
   boundingBox.setFromObject(cubeGrid).getSize(boundingBoxSize);
