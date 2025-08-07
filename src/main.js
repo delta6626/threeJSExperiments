@@ -32,10 +32,10 @@ function init() {
   cubeGrid.position.set(-boundingBoxSize.x / 2, 0, -boundingBoxSize.z / 2);
   scene.add(cubeGrid);
 
-  let pointLight = new three.PointLight("#ffffff");
-  pointLight.position.set(-1, 2, 0);
-  pointLight.castShadow = true;
-  scene.add(pointLight);
+  let directionalLight = new three.DirectionalLight("#ffffff");
+  directionalLight.position.set(-1, 2, 0);
+  directionalLight.castShadow = true;
+  scene.add(directionalLight);
 }
 
 function createCube(sideLength, posX, posY, posZ) {
