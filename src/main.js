@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as dat from "dat.gui";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
+import { Clock } from "three";
 
 function init() {
   const scene = new THREE.Scene();
@@ -21,6 +22,8 @@ function init() {
   const pointLight = new THREE.PointLight("rgba(255, 255, 255, 1)", 2);
   pointLight.position.set(0, 1, 2);
   scene.add(pointLight);
+
+  const clock = new THREE.Clock();
 
   const cube = new THREE.Mesh(
     new THREE.BoxGeometry(1, 1, 1, 256, 256),
@@ -54,7 +57,9 @@ function init() {
 
   function animate() {
     controls.update();
+    cube.position.x = Math.sin(2 * clock.getElapsedTime());
     renderer.render(scene, camera);
+    console.log(clock.getElapsedTime());
   }
 }
 
