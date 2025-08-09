@@ -58,8 +58,8 @@ function init() {
   function animate() {
     const time = clock.getElapsedTime();
     controls.update();
-    cube.position.x = Math.sin(2 * time);
-    cube.position.y = Math.cos(2 * time);
+    cube.position.x = 5 * Math.sin(2 * time);
+    cube.position.z = 5 * Math.cos(2 * time);
     renderer.render(scene, camera);
     console.log(clock.getElapsedTime());
   }
