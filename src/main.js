@@ -1,101 +1,61 @@
-import * as three from "three";
+import * as THREE from "three";
+import { degToRad } from "three/src/math/MathUtils.js";
+import * as dat from "dat.gui";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 
-const scene = new three.Scene();
-const camera = new three.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-const renderer = new three.WebGLRenderer();
-const controller = new OrbitControls(camera, renderer.domElement);
-
 function init() {
-  camera.position.set(0, 1, 5);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
+  camera.position.set(0, 1, 4);
+  const renderer = new THREE.WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+
+  const pointLight = new THREE.PointLight("rgba(255, 255, 255, 1)", 2);
+  pointLight.position.set(0, 1, 2);
+  scene.add(pointLight);
+
+  const cube = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 1, 1, 256, 256),
+    new THREE.MeshPhongMaterial({ color: "rgba(192, 252, 197, 1)" })
+  );
+
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(1000, 1000),
+    new THREE.MeshPhongMaterial({
+      color: "rgba(255, 244, 209, 1)",
+      side: THREE.DoubleSide,
+    })
+  );
+  plane.position.set(0, -1, 0);
+  plane.rotateX(degToRad(90));
+  scene.add(plane);
+
+  scene.add(cube);
+
+  const controllerGUI = new dat.GUI();
+  controllerGUI.add(pointLight, "intensity", 0, 5);
+  controllerGUI.add(pointLight.position, "y", -10, 10);
+  controllerGUI.add(pointLight.position, "x", -10, 10);
+  controllerGUI.add(pointLight.position, "z", -10, 10);
+
+  controllerGUI.add(cube.position, "y", -10, 10).name("Cube y");
+  controllerGUI.add(cube.position, "x", -10, 10).name("Cube x");
+  controllerGUI.add(cube.position, "z", -10, 10).name("Cube z");
+
   renderer.setAnimationLoop(animate);
 
-  renderer.shadowMap.enabled = true;
-
-  let plane = createPlane(1000, 1000);
-  plane.rotateX(-Math.PI / 2);
-  plane.position.set(0, -0.5, 0);
-  plane.receiveShadow = true;
-  scene.add(plane);
-  let cubeGrid = createCubeGrid(1, 12, 2, 4);
-  cubeGrid.name = "cubeGrid";
-  let boundingBox = new three.Box3();
-  let boundingBoxSize = new three.Vector3();
-  boundingBox.setFromObject(cubeGrid).getSize(boundingBoxSize);
-  cubeGrid.position.set(-boundingBoxSize.x / 2, 0, -boundingBoxSize.z / 2);
-  scene.add(cubeGrid);
-
-  let directionalLight = new three.DirectionalLight("#ffffff");
-  directionalLight.position.set(-1, 2, 0);
-  directionalLight.castShadow = true;
-  scene.add(directionalLight);
-}
-
-function createCube(sideLength, posX, posY, posZ) {
-  const cube = new three.Mesh(
-    new three.BoxGeometry(sideLength, sideLength, sideLength, 256, 256),
-    new three.MeshPhongMaterial({ color: "rgba(93, 179, 250, 1)" })
-  );
-
-  if (posX == null) {
-    posX = 0;
+  function animate() {
+    controls.update();
+    renderer.render(scene, camera);
   }
-  if (posY == null) {
-    posY = 0;
-  }
-  if (posZ == null) {
-    posZ = 0;
-  }
-
-  cube.position.set(posX, posY, posZ);
-  return cube;
-}
-
-function createCubeGrid(sizeLength, amount, distance, maxItems) {
-  const cubeGroup = new three.Group();
-  let currentRow = 0;
-  let column = 0;
-  for (let i = 0; i < amount; i++) {
-    if (i != 0 && i % maxItems == 0) {
-      currentRow++;
-      column = 0;
-    }
-    const cube = createCube(
-      sizeLength,
-      distance * column,
-      0,
-      currentRow * distance
-    );
-    cube.castShadow = true;
-    cubeGroup.add(cube);
-    column++;
-  }
-
-  return cubeGroup;
-}
-
-function createPlane(width, height) {
-  const plane = new three.Mesh(
-    new three.PlaneGeometry(width, height),
-    new three.MeshPhongMaterial({ color: "#ffffff", side: three.DoubleSide })
-  );
-  return plane;
-}
-
-function animate() {
-  controller.update();
-  const cubeGrid = scene.getObjectByName("cubeGrid");
-  cubeGrid.children.forEach((cube) => {
-    cube.position.x = Math.floor(Math.random() * 10);
-  });
-  renderer.render(scene, camera);
 }
 
 init();
