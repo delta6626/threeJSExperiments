@@ -2,7 +2,6 @@ import * as THREE from "three";
 import { degToRad } from "three/src/math/MathUtils.js";
 import * as dat from "dat.gui";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
-import { Clock } from "three";
 
 function init() {
   const scene = new THREE.Scene();
@@ -58,10 +57,7 @@ function init() {
   function animate() {
     const time = clock.getElapsedTime();
     controls.update();
-    cube.position.x = 5 * Math.sin(2 * time);
-    cube.position.z = 5 * Math.cos(2 * time);
     renderer.render(scene, camera);
-    console.log(clock.getElapsedTime());
   }
 }
 
