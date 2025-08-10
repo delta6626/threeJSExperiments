@@ -53,7 +53,7 @@ function init() {
     .easing(Easing.Quadratic.Out);
   const tweenLeft = new Tween(cube.position, tweenGroup)
     .to({ x: 0, z: 0, y: 0 }, 2000)
-    .easing(Easing.Quadratic.In);
+    .easing(Easing.Quadratic.InOut);
   tweenRight.chain(tweenLeft);
   tweenLeft.chain(tweenRight);
   tweenRight.start();
