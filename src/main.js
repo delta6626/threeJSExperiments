@@ -49,10 +49,10 @@ function init() {
 
   const tweenGroup = new Group();
   const tweenRight = new Tween(cube.position, tweenGroup)
-    .to({ x: 2 }, 2000)
+    .to({ x: 2, z: -2, y: 2 }, 2000)
     .easing(Easing.Quadratic.Out);
   const tweenLeft = new Tween(cube.position, tweenGroup)
-    .to({ x: -2 }, 2000)
+    .to({ x: 0, z: 0, y: 0 }, 2000)
     .easing(Easing.Quadratic.In);
   tweenRight.chain(tweenLeft);
   tweenLeft.chain(tweenRight);
